@@ -6,6 +6,9 @@ function calculate(number1Field, number2Field, operationField) {
     case 'plus':
       return number1 + number2;
 
+    case 'sin':
+      return Math.sin(number1);
+
     default:
       return NaN;
   }
