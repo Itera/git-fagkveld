@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var operationField = document.getElementById('operation');
   var resultField = document.getElementById('result');
 
-  number1Field.addEventListener('input', function() {
+  var updateCalculation = function() {
     var result = calculate(number1Field, number2Field, operationField);
     resultField.innerText = result;
-  });
+  };
 
-  number2Field.addEventListener('input', function() {
-    var result = calculate(number1Field, number2Field, operationField);
-    resultField.innerText = result;
-  });
+  number1Field.addEventListener('input', updateCalculation);
+  number2Field.addEventListener('input', updateCalculation);
+
+  updateCalculation();
 });
