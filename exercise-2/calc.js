@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   number1Field.addEventListener('input', updateCalculation);
   number2Field.addEventListener('input', updateCalculation);
+  operationField.addEventListener('input', updateCalculation);
 
   updateCalculation();
 });
