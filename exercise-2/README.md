@@ -221,3 +221,38 @@ rebase to reorder the commits first, or do it in a completely different way.
 This is left as a bonus exercise, and will not be explored further here.
 
 ## Part 5. Merge into master and resolve conflicts
+
+The operations we've covered so far in this exercise are the ones you'll most
+commonly use to keep your branch history nice and clean. Now that we've cleaned
+up the branch a bit, the final thing we'll do with it is to merge it back in to
+the master branch.
+
+To do this, switch back to the master branch by running `git checkout master`
+and then perform the merge by running `git merge feat/trigonmetric-functions`.
+
+When you perform merges, it's normal to encounter conflicts caused by changes
+introduced (usually by other people) on the branch you're merging into. If git
+can't figure out how to cleanly combine the changes, you'll have to do it
+yourself. In this case, there will be a few small conflicts you'll have to solve
+manually, both in calc.js and in index.html.
+
+If you open exercise-2/calc.js, you'll see that git has inserted some markers
+for you:
+```
+<<<<<<< HEAD
+    case 'minus':
+      return number1 - number2;
+=======
+    case 'sin':
+      return Math.sin(number1);
+>>>>>>> feat/trigonmetric-functions
+```
+
+This indicates the conflicting sections from the master and the feature branch,
+respectively. Since we in this case want both changes to be there, the correct
+strategy is simply to remove the conflict markers so all three switch cases
+remain. There should be one more similar conflict to solve, in index.html.
+
+After you've solved all the conflicts, use `git add` to add the conflicting
+files (calc.js and index.html) to the staging area to include them in the merge
+commit. Finish the merge by running `git commit`.
