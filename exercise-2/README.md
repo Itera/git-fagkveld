@@ -256,3 +256,78 @@ remain. There should be one more similar conflict to solve, in index.html.
 After you've solved all the conflicts, use `git add` to add the conflicting
 files (calc.js and index.html) to the staging area to include them in the merge
 commit. Finish the merge by running `git commit`.
+
+## Bonus task 1. Verify commits in a rebase with --exec
+
+When doing a rebase you often change the contents of previous commits. If you
+don't take care, you might end up with commits that don't run properly. Because
+you might want to go back to the commit at a later time (e.g. if you run bisect,
+or do a revert), you want all of the commits to run properly.
+
+To verify that they do that, you can use the `--exec <command>` option of
+rebase. This will run the command you specify for each commit you rebase over,
+and check the return code of the command. If the command fails, it will stop the
+rebase at that commit, and allow you to fix the error and continue.
+
+The command you would run could be a command for compiling the code or running
+the tests for the project. We don't have any tests in this example, but you
+could try running [prettier], which is a tool for formatting code. The `-l`
+option makes prettier check if the code is formatted correctly. Try it by
+running:
+
+```
+npm install prettier
+git rebase --exec 'prettier -l --single-quote exercise-2/calc.js' HEAD~3
+```
+
+Try to introduce an error in an earlier commit, or run prettier without the
+`--single-quote` option to see what happens when the check fails.
+
+[prettier]: https://prettier.io/
+
+## Bonus task 2. Save and reuse conflict resolution with rerere
+
+Sometimes you might end up resolving the same conflict multiple times. This
+happens because git by default doesn't store how you resolve conflicts any place
+apart from the merge commit itself. The reason you might have to resolve the
+conflict again is if you remove the merge commit and do the merge again (e.g. if
+you realized you wanted to change something in the branch before you merge it,
+or you just wanted to test merging it before you were finished with it) or if
+you run an interactive rebase with the preserve-merges option.
+
+However, git has a way to store these conflict resolutions which is called
+rerere, or reuse recorded resolution. To enable this, set the config variable
+`rerere.enabled` to `true`.
+
+```
+git config --global rerere.enabled true
+```
+
+For future merges, git will now store this information. If the same conflict
+occurs, it will automatically apply the resolution. The file will still be
+marked as having a conflict though, so you have a chance to check that the
+resolution is still correct. If the resolution is incorrect, and you want the
+conflict markers, you can run the command `git checkout -m <file>`.
+
+Note that this information is stored separately from the merge commit, which
+means that you will only have this information for commits you yourself has done
+after you enabled rerere. To include previous merges or merges done by others,
+you can run a script called `rerere-train.sh`. This usually comes included with
+git, but is probably not in your PATH so you will have to locate it, or download
+it e.g. [from github][rerere-train-github].
+
+This script takes a revision and looks at all the commits reachable from that
+revision. We will specify `HEAD`, which means that it will go through all the
+commits in the current branch. You can specify any options that are valid for
+the `rev-list` command for this script.
+
+Try running `rerere-train.sh` on the merge commit you created in part 5. Then
+remove this merge commit and do the merge again.
+
+```
+rerere-train.sh HEAD
+git reset --keep HEAD~
+git merge feat/trigonmetric-functions
+```
+
+[rerere-train-github]: https://raw.githubusercontent.com/git/git/master/contrib/rerere-train.sh
