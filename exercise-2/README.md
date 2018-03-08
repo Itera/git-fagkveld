@@ -5,13 +5,13 @@ browser. The code is just for having something to work with for the exercises,
 and you don't need to do anything with the code, other than what is mentioned in
 the tasks.
 
-We will start working on the branch `feat/trigonmetric-functions`, and doing
+We will start working on the branch `feat/trigonometric-functions`, and doing
 some changes there. Eventually, we will merge this branch into `master`.
 
 ## Part 1. Amend the last commit
 
 For the first part, we want to change the most recent commit in the branch
-`feat/trigonmetric-functions`. The change you should do is to make the check for
+`feat/trigonometric-functions`. The change you should do is to make the check for
 NaN in `calc.js` use `Number.isNaN` instead of `isNaN`, as this function is more
 strict. They take the same argument, so you don't need to change anything else.
 
@@ -36,8 +36,8 @@ commit.
 If you run `git status` after doing this, you will see this message:
 
 ```
-On branch feat/trigonmetric-functions
-Your branch and 'origin/feat/trigonmetric-functions' have diverged,
+On branch feat/trigonometric-functions
+Your branch and 'origin/feat/trigonometric-functions' have diverged,
 and have 1 and 1 different commits each, respectively.
   (use "git pull" to merge the remote branch into yours)
 ```
@@ -146,7 +146,7 @@ operation will run, and the two commits will be merged.
 Before we merge this branch into master, we realize that the last commit in the
 branch doesn't really belong as part of this feature, so it should be in a
 separate branch. Therefore, we would like to split this branch into two
-branches, where the current branch, `feat/trigonmetric-functions` keeps all the
+branches, where the current branch, `feat/trigonometric-functions` keeps all the
 commits except the last, and the new branch only contains the last commit on
 top of master.
 
@@ -177,7 +177,7 @@ can use `~` to specify the parent. So we end up with:
 git reset --keep HEAD~
 ```
 
-Now `feat/trigonmetric-functions` is in the state we want it, so we can move on
+Now `feat/trigonometric-functions` is in the state we want it, so we can move on
 to the new branch.
 
 ```
@@ -228,7 +228,7 @@ up the branch a bit, the final thing we'll do with it is to merge it back in to
 the master branch.
 
 To do this, switch back to the master branch by running `git checkout master`
-and then perform the merge by running `git merge feat/trigonmetric-functions`.
+and then perform the merge by running `git merge feat/trigonometric-functions`.
 
 When you perform merges, it's normal to encounter conflicts caused by changes
 introduced (usually by other people) on the branch you're merging into. If git
@@ -245,7 +245,7 @@ for you:
 =======
     case 'sin':
       return Math.sin(number1);
->>>>>>> feat/trigonmetric-functions
+>>>>>>> feat/trigonometric-functions
 ```
 
 This indicates the conflicting sections from the master and the feature branch,
@@ -327,7 +327,7 @@ remove this merge commit and do the merge again.
 ```
 rerere-train.sh HEAD
 git reset --keep HEAD~
-git merge feat/trigonmetric-functions
+git merge feat/trigonometric-functions
 ```
 
 [rerere-train-github]: https://raw.githubusercontent.com/git/git/master/contrib/rerere-train.sh
