@@ -11,5 +11,5 @@ In order to carry out the exercises, you firstly need to have Git on your comput
 ### Fork the project
 Go to the top right corner of this page and click on the "Fork" button. Fork will create a copy of the repository to your own github account.
 
-Open your preferred terminal/command line tool, and run the command "git clone https://github.com/<your-github-user>/git-fagkveld".
+Open your preferred terminal/command line tool, and run the command `git clone https://github.com/<your-github-user>/git-fagkveld`.
 This will download this project to your computer.
